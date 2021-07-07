@@ -43,7 +43,7 @@
 
 Итоговая таблица характеристик уровней изоляции выглядит следующим образом:  
 
-![Transaction Isolation Levels](Lab4/images/isolation_level_table.png)
+![Transaction Isolation Levels](images/isolation_level_table.png)
 
 ***Грязное чтение/Dirty Read*** - Чтение данных, добавленных или изменённых еще не завершенной транзакцией.
 
@@ -54,12 +54,10 @@
 
 ### Запросы ###
 
-Код моей программы находится в следующей директории: [Transaction Project](Lab4/TransactionsProject)  
+Код проекта включает в себя уже известные классы [MovieGenerator.java](src/main/java/Generator/MovieGenerator.java)  
+и [DBConnector.java](src/main/java/util/DBConnector.java) слегка видоизмененные для нужд текущего технического задания.  
 
-Код проекта включает в себя уже известные классы [MovieGenerator.java](Lab4/TransactionsProject/src/main/java/Generator/MovieGenerator.java)  
-и [DBConnector.java](Lab4/TransactionsProject/src/main/java/util/DBConnector.java) слегка видоизмененные для нужд текущего технического задания.  
-
-Для реализации многопоточного обращения к БД был написан класс [TransactionThread.java](Lab4/TransactionsProject/src/main/java/TransactionThread.java)  
+Для реализации многопоточного обращения к БД был написан класс [TransactionThread.java](src/main/java/TransactionThread.java)  
 
 Логика приложения заключается в следующем:  
 Синхронизированные по началу и окончанию времени работы 3 потока выполняют запросы INSERT, SELECT, UPDATE к моей БД. Каждый поток имеет свое соединение.
@@ -101,11 +99,11 @@ UPDATE film SET runtime = 222 WHERE budget < 1000000
 **1-ый тип** -  время прошедшее от начала выполнения запросов до окончания серии.  
 **2-ой тип** -  индивидуальное время выполнение каждого запроса.
 
-Все собранные значения я сохраняю в формате json ([total_time_metrics](Lab4/TransactionsProject/src/main/data/metrics_total.json) и [average_time_metrics](Lab4/TransactionsProject/src/main/data/metrics_average.json))
+Все собранные значения я сохраняю в формате json ([total_time_metrics](src/main/data/metrics_total.json) и [average_time_metrics](src/main/data/metrics_average.json))
 
 Выглядит это все в следующем виде:  
 
-![Json format](Lab4/images/json_format.png)
+![Json format](images/json_format.png)
 
 
 ### Общее время серий запросов. Графики. ###  
@@ -115,13 +113,13 @@ UPDATE film SET runtime = 222 WHERE budget < 1000000
 Ось Y - время в миллисекундах от начала выполнения серии
 
 Для уровня изоляции **READ COMMITTED** наблюдаем следующую картину:  
-![total_read_committed](Lab4/images/total_read_committed.png)  
+![total_read_committed](images/total_read_committed.png)  
 
 Для уровня изоляции **REPEATABLE READ**:  
-![total_repeatable_read](Lab4/images/total_repeatable_read.png)  
+![total_repeatable_read](images/total_repeatable_read.png)  
 
 А время за которое отработала серия запросов на уровне **SERIALIZE* *выглядит так:  
-![total_serialize](Lab4/images/total_serialize.png)  
+![total_serialize](images/total_serialize.png)  
 
 Я считаю эти графики достаточно наглядными, потому что:
 * По ним легко можно определить самую быструю серию запросов и самую медленную ( самый быстрый - **INSERT**, самый медленный - **UPDATE** для всех уровней изоляции)
@@ -156,7 +154,7 @@ ____________________________________
 
 Графическое отображение:  
 
-![confidence interval insert](Lab4/images/ci_insert.png)  
+![confidence interval insert](images/ci_insert.png)  
 
 Как видим, доверительные интервалы не перекрываются, значит разница является статистически значимой.  
 
@@ -180,7 +178,7 @@ ____________________________________
 
 Графическое отображение:  
 
-![confidence interval select](Lab4/images/ci_select.png)  
+![confidence interval select](images/ci_select.png)  
 
 Опять же, доверительные интервалы не перекрываются, значит разница является статистически значимой.  
 
@@ -204,7 +202,7 @@ ____________________________________
 
 Графическое отображение:  
 
-![confidence interval update](Lab4/images/ci_update.png)  
+![confidence interval update](images/ci_update.png)  
 
 И тут тоже доверительные интервалы не перекрываются, значит разница является статистически значимой.  
 
